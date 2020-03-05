@@ -368,3 +368,47 @@ class Me : Runner, Eater {
 }
 
 ```
+
+
+### 008 변수, 함수, 클래스의 접근범위와 접근제한자는?
+1. 스코프와 접근제한자.
+    - 스코프 외부에서는 스코프 내부의 멤버를 '참조연산자(.)'로만 접근이 가능하다.
+    - 동일 스코프 내에서는  멤버들을 공유 할 수 있다.
+2. 접근제한자 : 변수, 함수, 클래스, 맨 앞에 붙여 사용됩니다.
+    - public, internal, private,protected
+    - 패키지 스코프에서
+        - public(기본값) : 어떤 패키지에서도 접근 가능.
+        - internal : 같은 모듈 내에서만 접근 가능.
+        - private : 같은 파일 내에서만 접근이 가능.
+        - protected : 사용하지 않음.
+    - 클래스 스코프에서는
+        - public(기본값) : 클래스 외부에서 늘 접근 가능
+        - private : 클래스 내부에서만 접근 가능
+        - protected : 클래스 자신과 상속받은 클래스에서 접근 가능
+        - internal : 사용하지 않음.
+```code
+
+package Kotlin2020
+
+val a1 = "피키지 스코프"
+
+class B {
+    val a = "스코프 a class"
+    fun print(){
+        println(a)
+    }
+}
+
+fun main(args: Array<String>) {
+    var a1 = "함수 스코프"
+    println(a1)
+    B().print()
+}
+
+```
+
+### 009 고차함수와 람다 함수
+
+```code
+
+```
