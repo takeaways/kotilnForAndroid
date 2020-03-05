@@ -282,3 +282,89 @@ class Cat(name: String, age: Int) : Animal(name, age, "cat"){
 }
 
 ```
+
+### 007 오버라이딩과 추상화 
+1. 수퍼클래스에서 허용만 한다면 같은 이름과 형태를 가진 함수를 재정의 할 수 있다
+2. 추상화란? :  "abstract" 키워드 사용 -> 무조건 오버라이팅 해줘야 해야 한다.
+    - 선언부만 있고 깃능이 구현되지 않은 추상함수 
+    - "추상함수"를 포함하는 "추상 클래스"로 구성된다.
+
+3. 인터페이스 사용가능 : 구현부가 있는 함수 + 없는 함수를 동시에 사용하능하나 생성자가 없을 뿐이다. -> 자바랑은 조금 다른 부분이네
+    - 인터페이스에서 구현부가 있는 함수 : open 함수로 취급 -> 오버라이딩 가능
+    - 인터페이스에서 구현부가 없는 함수 : abstract 함수로 취급 -> 무조건 구현 해줘야 한다.
+    - 그렇기 때문에 키워드를 사용하지 않아도 된다.
+    - 또 한 여럿 인터페이스를 상속 받을 수 있다.
+4. 오버라이딩은 이미 구현이 끝난 함수의 기능을 서브 클래스에서 변경해야 할 때 그리고 추상화는 실제 구현은 서브클래스에서 일임할 때 사용하는 기능이며
+인터 페이스는 서로다른 기능들을 구현할 때 여러개를 물려주어야 할 떄 유용한 기능입니다.
+
+```code
+
+package Kotlin2020
+
+fun main(args: Array<String>) {
+
+    val t = Tiger()
+    t.eat()
+    t.eat("고기")
+
+    val c = Benz()
+    c.drive()
+    c.stop()
+    println()
+    val m = Me()
+    m.eat()
+    m.run()
+
+
+}
+
+open class Animal {
+    open fun eat() {
+        println("음식을 먹습니다.")
+    }
+}
+
+class Tiger : Animal() {
+    fun eat(food: String) {
+        println("${food}를 먹습니다.")
+    }
+
+    override fun eat() {
+        println("타이거가 음식을 엄청나게 맛나게 먹고 있습니다.")
+    }
+}
+
+abstract class Car {
+    abstract fun drive()
+    fun stop() {
+        println("정지 합니다.")
+    }
+}
+
+class Benz : Car() {
+    override fun drive() {
+        println("자동차가 출발 합니다.")
+    }
+}
+
+interface Runner {
+    fun run()
+}
+
+interface Eater {
+    fun eat() {
+        println("음식을 먹습니다.")
+    }
+}
+
+class Me : Runner, Eater {
+    override fun run() {
+        println("달리기하기")
+    }
+
+    override fun eat(){
+        println("dkdkdk")
+    }
+}
+
+```
