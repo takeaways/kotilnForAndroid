@@ -4,12 +4,12 @@ fun main(args: Array<String>) {
     val a = Animal("동물", 2,"고래")
     val dog1 = Dog("멍멍이", 5)
     val cat1 = Cat("나폴레옹",2)
-
     a.greeting()
     println()
     dog1.greeting()
     dog1.bark()
     println()
+
     cat1.greeting()
     cat1.bark()
 }
