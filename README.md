@@ -150,3 +150,34 @@ fun main(args: Array<String>) {
 
 
 ```
+
+
+### 006 논리연산자
+1. &&, ||, !
+
+
+```code
+
+package Kotlin2020
+
+fun main(args: Array<String>) {
+
+    for(i in 1..10){
+        if(i == 3) break;
+        println(i)
+    }
+
+    for(i in 1..10){
+        if(i == 3) continue
+        println(i)
+    }
+
+    loop@for(i in 1..10){
+        for(j in 1..10){
+            if(i == 2 && j == 4 ) break@loop
+            println("$i : $j")
+        }
+    }
+}
+
+```
