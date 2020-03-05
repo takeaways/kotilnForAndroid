@@ -3,8 +3,8 @@ package Kotlin2020
 val a1 = "피키지 스코프"
 
 class B {
-    val a = "스코프 a class"
-    fun print(){
+     val a = "스코프 a class"
+    public fun print(){
         println(a)
     }
 }
