@@ -25,17 +25,47 @@ fun main(args : Array<String>){
 
 ```
 
-### 001 변수와 자료형
+### 002 형변환과 배열
+1. 형변환을 하기 위해서는 to자료형() 형변환 함수를 지원
+2. 암시적 형변환을 지원하지 않습니다.
+3. 명시적 형변환 : 변환될 자료형을 개발자가 직접 지정
 
 ```code
 
 package Kotlin2020
 
-fun main(args : Array<String>){
+fun main(args: Array<String>) {
 
-    var a: Int = 10 // variable : 변할 수 있는 변수 방법 -> let
-    val b: Int = 20 // value : 변할 수 없는 변수 선언 방법 -> const
+    var intArr = arrayOf(1,2,3,4,5)
+    val nullArr = arrayOfNulls<INT>(4)
+
+    intArr[2] = 8
+    println(nullArr[2])
 
 }
+
+```
+
+### 003 타입추론과 함
+1. 자료형이 없이 변수를 초기화 한다면 알아서 추론된다.
+2. 함수 : 특정한 동작을하거나 원하는 결과값을 가지기 위해서 사용한다.
+3. 단일표현식 함수 : fun add2(a: Int, b: Int, c:Int) = a + b + c
+
+```code
+
+package Kotlin2020
+
+
+fun add(a: Int, b: Int, c:Int): Int{
+    return a + b + c
+}
+
+fun add2(a: Int, b: Int, c:Int) = a + b + c
+
+fun main(args: Array<String>) {
+    val result: Int = add(10,20,30)
+    println(result)
+}
+
 
 ```
