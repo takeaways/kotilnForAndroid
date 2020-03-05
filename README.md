@@ -46,7 +46,7 @@ fun main(args: Array<String>) {
 
 ```
 
-### 003 타입추론과 함
+### 003 타입추론과 함수
 1. 자료형이 없이 변수를 초기화 한다면 알아서 추론된다.
 2. 함수 : 특정한 동작을하거나 원하는 결과값을 가지기 위해서 사용한다.
 3. 단일표현식 함수 : fun add2(a: Int, b: Int, c:Int) = a + b + c
@@ -65,6 +65,84 @@ fun add2(a: Int, b: Int, c:Int) = a + b + c
 fun main(args: Array<String>) {
     val result: Int = add(10,20,30)
     println(result)
+}
+
+
+```
+
+### 004 조건문과 비교연산
+1. if ~ else : 중괄호를 한 줄 이라면 생략이 가능하다.
+2. 비교연산자 ( >, <, >=, <=, ==)
+3. 자료형 ( 변수 is 자료형 ) 자료형이 맞는지 확인
+4. 다중 조건문 when -> swich 문과 비슷 하다고 생각하면된다.
+
+```code
+
+package Kotlin2020
+
+fun main(args: Array<String>) {
+
+    var a = 10;
+    if(a> 100){
+        println("$a 입니다.")
+    }else{
+        println("안뇽 만나서 반가웡")
+    }
+
+    doWhen(1)
+    doWhen("GI")
+    doWhen(12L)
+    doWhen(12.3)
+
+}
+
+fun doWhen(a: Any){
+    when(a){
+        1-> println("1 입니다.")
+        "GI"-> println("GI 입니다.")
+        is Long -> println("Long type 입니다.")
+        !is Long -> println("logn type이 아닙니다.")
+        else -> println("어떤 조건도 만족하지 않습니다.")
+    }
+}
+
+
+```
+
+### 004 조건문과 비교연산
+1. if ~ else : 중괄호를 한 줄 이라면 생략이 가능하다.
+2. 비교연산자 ( >, <, >=, <=, ==)
+3. 자료형 ( 변수 is 자료형 ) 자료형이 맞는지 확인
+4. 다중 조건문 when -> swich 문과 비슷 하다고 생각하면된다.
+
+```code
+
+package Kotlin2020
+
+fun main(args: Array<String>) {
+
+    var a = 10;
+    if(a> 100){
+        println("$a 입니다.")
+    }else{
+        println("안뇽 만나서 반가웡")
+    }
+
+    doWhen(1)
+    doWhen("GI")
+    doWhen(12L)
+    doWhen(12.3)
+
+}
+
+fun doWhen(a: Any){
+    when(a){
+        1-> println("1 입니다.")
+        "GI"-> println("GI 입니다.")
+        is Long -> println("Long type 입니다.")
+        !is Long -> println("logn type이 아닙니다.")
+        else -> println("어떤 조건도 만족하지 않습니다.")
+    }
 }
 
 
