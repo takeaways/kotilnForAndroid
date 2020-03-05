@@ -109,11 +109,10 @@ fun doWhen(a: Any){
 
 ```
 
-### 004 조건문과 비교연산
-1. if ~ else : 중괄호를 한 줄 이라면 생략이 가능하다.
-2. 비교연산자 ( >, <, >=, <=, ==)
-3. 자료형 ( 변수 is 자료형 ) 자료형이 맞는지 확인
-4. 다중 조건문 when -> swich 문과 비슷 하다고 생각하면된다.
+### 005 반복문과 증감연산
+1. ++, --
+2. ++v 전위 연산자 : 값을 증가시키고 적용시킨다
+3. v++ 후휘 연산자 : 실행하고 다음에 값을 증가 시킨다.
 
 ```code
 
@@ -121,28 +120,32 @@ package Kotlin2020
 
 fun main(args: Array<String>) {
 
-    var a = 10;
-    if(a> 100){
-        println("$a 입니다.")
-    }else{
-        println("안뇽 만나서 반가웡")
+    var a = 0;
+    while(a < 5){
+        println(++a) // 1,2,3,4,5
     }
 
-    doWhen(1)
-    doWhen("GI")
-    doWhen(12L)
-    doWhen(12.3)
-
-}
-
-fun doWhen(a: Any){
-    when(a){
-        1-> println("1 입니다.")
-        "GI"-> println("GI 입니다.")
-        is Long -> println("Long type 입니다.")
-        !is Long -> println("logn type이 아닙니다.")
-        else -> println("어떤 조건도 만족하지 않습니다.")
+    println()
+    a = 0
+    while(a < 5){
+        println(a++) // 0,1,2,3,4
     }
+
+    println()
+    for(i in 0..10){
+        println(i)
+    }
+
+    println()
+    for(i in 0..10 step 3){
+        println(i)
+    }
+
+    println()
+    for(i in 100 downTo 30 step 30){
+        println(i)
+    }
+
 }
 
 
