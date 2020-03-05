@@ -183,6 +183,7 @@ fun main(args: Array<String>) {
 ```
 
 ### 007 클래스
+0. *var, val 등을 붙이면 자체 속성으로 선언이 된다.
 1. 클래스는 그 값과 그 값을 사용하는 기능을 묶어 놓은 것이다.
 2. 속성 + 함수(메소)로 구현되어 있다.
 3. 생성자 : 새로운 인스턴스를 만들기 위해 호출하는 함수.
@@ -228,15 +229,56 @@ class Person(var name: String , val birthDay : Int, var age:Int){
     }
 }
 
-//생성자란?
 
 
 ```
 
 ### 006 클래스 상
-1.
+1. 기존 클래스를 확장하여 새로운 속성이나 함수를 만들어야 할 떄
+2. 공통점을 뽑아 관리를 편하게 하기 위해서
+3. super class & sub class
+4. 'open' 상속을 허용하기 위한 키워드
+    - 서브클래스는 수퍼 클래스에 존재하는 속성과 '같은 이름'의 속성을 가질 수 없음
+        - 그렇기 때문에 생성시 처기값에 변수 키워드(var, val)를 사용하지 않는다.
+    - 서브 클래스가 생성될 때는 반드시 수퍼클래스의 생성자까지 호출되어야 한다.
+        - class 자식클래스 () : 부모클래스() {}와 값이 사용해서 꼭 부모 클래스의 초기 값을 전달해 줘야 한다.
+5. 자식 클래스만의 독자적인 기능 추가하는 것이 가능핟.
+
 
 ```code
 
+package Kotlin2020
+
+fun main(args: Array<String>) {
+    val a = Animal("동물", 2,"고래")
+    val dog1 = Dog("멍멍이", 5)
+    val cat1 = Cat("나폴레옹",2)
+
+    a.greeting()
+    println()
+    dog1.greeting()
+    dog1.bark()
+    println()
+    cat1.greeting()
+    cat1.bark()
+}
+
+open class Animal(var name: String, var age: Int, var type: String){
+    fun greeting(){
+        println("안녕 하세요 ${name} 입니다. ${age}, ${type} 입니다.")
+    }
+}
+
+class Dog(name: String, age: Int ) : Animal(name, age, "dog"){
+    fun bark(){
+        println("$name bow - bow ")
+    }
+}
+
+class Cat(name: String, age: Int) : Animal(name, age, "cat"){
+    fun bark(){
+        println("${name} mew - mew")
+    }
+}
 
 ```
