@@ -233,7 +233,7 @@ class Person(var name: String , val birthDay : Int, var age:Int){
 
 ```
 
-### 006 클래스 상
+### 006 클래스 상속
 1. 기존 클래스를 확장하여 새로운 속성이나 함수를 만들어야 할 떄
 2. 공통점을 뽑아 관리를 편하게 하기 위해서
 3. super class & sub class
