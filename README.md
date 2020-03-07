@@ -455,10 +455,53 @@ fun b(function: (String) -> Unit){
     - 함수형 언어의 특징을 좀 더 편리하게 사용할 수 있도록 기본 제공하는 함수들
         - 클래스의 인스턴스를 '스코프함수'에 전달하면, 인스턴스의 속성이나 함수를 스코프 함수 내에서 편하게 사용할 수 있도록 하는 기능
         - apply, run, with, also, let
-            - apply : 인스턴스를 생성한 후 변수에 담기전에 초기화 과정을 수행할 떄 사용하며, 인스턴스를 다시 반환한다. 인스턴스를 생성할 때 인스턴스의 값에 변화를 주 다음 생성하기를 원할 때 사용한다.
-
+            - apply : 인스턴스를 생성한 후 변수에 담기전에 초기화 과정을 수행할 떄 사용하며, 인스턴스를 다시 반환한다. 인스턴스를 생성할 때 인스턴스의 값에 변화를 준 다음 생성하기를 원할 때 사용한다.
+            - run : apply와 마찬가지로 참조 연산자를 사용하지 않도 된다는 것은 같으나, 일반 람다 함수 처럼 맨 마지막의 결과 값을 리턴 한다. 인스턴스가 만들어 진후에 인스턴스의 함수나 속성을 스코프 내에서 사용해야 할 때 유용하다.
+            - with : run 과 동일한 기능을 하나, 사용법만 다르다. with(a){} 이렇게 인스털스를 파라미터로 받는다.
+            - also / let: apply와 run과 같은 동작을 하는 스코프 함수이나, 해당 스코프 외부에서 선언된 변수가 있다면 그 변수를 우천 참조하기 때문에 자신의 변수를 it. 키워드를 참조하여 접근한다.
 
 
 ```code
+
+package Kotlin2020
+
+fun main(args: Array<String>) {
+    val a = Book("GIBOOK", 30000).apply {
+        name = "[초특가]"+name
+        discount()
+    }
+    println(a.name)
+    println(a.price)
+    println()
+
+    println("여기 아래서 부터는 run을 사용한 값을 출력하는 부분 입니다.")
+    // let를 사요해보기
+    val price = 1000 // 이렇게 선언 할 경우 아래 run 스코프 내부에서 불러지는 price 값이 되어 버려
+    // 기존 인스턴스의 값을 불러 올 수 없게 된다.
+    // 이렇때는 let 스코프 함수를 사용하여 it. 으로 접근할 수 있도록 처리 한다.
+    val letResult : String = a.let{
+        it.discount()
+        "현재 ${it.name}책 값은 ${it.price} "
+    }
+    val runReuslt : String = a.run{
+        discount()
+        "현재 ${name}책 값은 ${price} "
+    }
+    println(letResult)
+    println(runReuslt)
+    println()
+
+    val b: String = Book("AM_BOOK",100000).run{
+        name+" LOVE"
+    }
+    println(b)
+}
+
+// apply 사용해보기
+class Book(var name : String, var price: Int){
+    fun discount(){
+        price -= 2000
+    }
+}
 
 ```
