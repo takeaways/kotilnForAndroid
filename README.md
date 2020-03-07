@@ -505,3 +505,72 @@ class Book(var name : String, var price: Int){
 }
 
 ```
+
+### 012 오브젝트
+1. 생성자 없이 객체를 직접 만들어내는 object
+2. 클래스는 인스턴스 객체를 만들어 내기위한 틀이기 때문에 내부에 있는 속성이나 하수를 사용하기 위해서는
+    생성자를 통하여 실체가 되는 인스턴스 객체를 만들어 사용해야 한다. 
+3. 그러나 여러개의 인스턴스를 만들 필요없이 하나의 객체 만으로 공톡적인 속성과 함수를 사용해야하는
+    코드에서는 굳이 class를 사용할 필요 없이 사용이 가능하다.
+4. 클래스 내부에서도 object(Companion Object) 를 만들어 사용할 수 있다. 
+    - 클래스의 인스턴스 기능은 그대로 사용하면서 인스턴스 간에 공통으로 사용할 속성과 함수를 만드는 기능이다.
+    - 기존의 Static 멤버 : 클래스 내부에서 별도의 영역에 고정적으로 존재하여 인스턴스를 생성하지 않아도 공용으로 사용 가능한 속성이나 함수 라고 볼 수 있다.
+
+```code
+package Kotlin2020
+
+import java.util.zip.CheckedOutputStream
+
+object Counter {
+    var count = 0;
+    fun up() {
+        count++
+    }
+
+    fun down() {
+        if (count > 0) {
+            count--
+        }else{
+            print("count의 최솟값인 0 입니다.")
+        }
+    }
+}
+
+fun main(args: Array<String>) {
+    println(Counter.count)
+    Counter.up()
+    Counter.up()
+    Counter.up()
+    println(Counter.count)
+    Counter.down()
+    Counter.down()
+    Counter.down()
+    Counter.down()
+
+    val ja = foodPoll("짜장")
+    val jm = foodPoll("짬뽕")
+    ja.counter()
+    ja.counter()
+    ja.counter()
+    jm.counter()
+println()
+    println("ja : ${ja.count}")
+    println("jm : ${jm.count}")
+    println("Total : ${foodPoll.total}")
+
+}
+
+class foodPoll(val name : String){
+    companion object {
+        var total = 0
+    }
+   
+
+    var count = 0
+
+    fun counter(){
+        total++
+        count++
+    }
+}
+```
