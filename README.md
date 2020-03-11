@@ -721,8 +721,6 @@ fun <T: A1> doShouting(t: T){
     t.shout()
 }
 
-
-
 open class A1 {
     open fun shout(){
         println("A Shout")
@@ -753,9 +751,34 @@ class UsingGeneric<T:A1>(var t : T){
 
 ```
 
-### 016
-
+### 016 컬렉션 list set map
+1. List는 '데이터를 모아 관리하는' 컬렉션 클래스를 상속하는 가장 단순한 형태의 서브 클래스
+2. List<out T> / MutableList<T>
+3. List<out T> : 생성시에 넣은 객체를 대체, 추가, 삭제 할 수 없음.
+4. MutableList<T> : 수정가능
+5. listOf 또는 mutableListOf 
+    - add(data), add(index, data)
+    - remove(data), remove(index, data)
+    - shuffle()
+    - sort()
+    
 ```code
+
+package Kotlin2020
+
+fun main(args: Array<String>) {
+    val a = listOf(1,2,3,4)
+    for(i in a){
+        println(i)
+    }
+    val b = mutableListOf(1,2,3,4,5)
+    println(b)
+    b.add(5)
+    println(b)
+    b.add(1,0)
+    b.shuffle()
+    println(b)
+}
 
 ```
 
