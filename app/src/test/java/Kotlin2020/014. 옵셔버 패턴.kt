@@ -1,7 +1,7 @@
 package Kotlin2020
 
 fun main(args: Array<String>) {
-
+    EventPrinter().start()
 }
 
 /*
@@ -19,7 +19,6 @@ interface EventListener {
 
 //이 벤트가 발생하는 Counter 클래스의 구현.
 class CounterEvent(var listener: EventListener) {
-
     fun count() {
         for (i in 1..100) {
             if (i % 5 == 0) listener.onEvent(i)
@@ -29,13 +28,14 @@ class CounterEvent(var listener: EventListener) {
 
 // 이벤트를 전달 받아 화면에 출력할 EventPrinter 클래스의 구현.
 class EventPrinter:EventListener{
-
     override fun onEvent(count: Int) {
         print("${count}-")
     }
-
     fun start(){
-        val counter = CounterEvent(this)
+        val counter = CounterEvent(this) // * this는 키원드가 사용된 '객체 자신'을 참조하는 키워드 입니다.
+        //EventPrinter 객체 자신을 나타내지만 받는쪽에서는 이벤트 리스너만 요구했기 떄문에
+        //이벤트 리스너 구현부만 넘겨 주게 된다.
+        //이를 객체지향의 다형성 이라고 한다.
         counter.count()
     }
 
