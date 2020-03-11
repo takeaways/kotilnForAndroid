@@ -819,22 +819,130 @@ fun main(args: Array<String>) {
 }
 ```
 
-### 018
+### 018 null 값을 처리하는 방법 
+1. nullable 
+2. ?. : null safe -> 객체가 널인지 확인하고 뒤 를 실행하지 않음 
+3. ?: : elvis  -> 연산자 우측 사용
+4. !!. : non-null assertion -> 컴파일이 아닌 런타임 시간에 의도적으로 널 에러 확인
+5. 변수의 동일성 내용의 동일성 vs 객체의 동일성 
+    - 내용의 동일성 : 메모리상에 위치가 다르다고 하더라고 내용이 같다면 같다. ( == )
+    - 객체의 동일성 : 메모리상에 같은 객체를 가르키고 있으면 같다. ( === )
 
 ```code
+package Kotlin2020
+
+fun main(args: Array<String>) {
+    var a : String ? = "sd"
+
+//    a?.run{
+//        println(toUpperCase())
+//        println(toLowerCase())
+//    }
+
+    var v1 = Product("콜라",1000)
+    var v2 = Product("콜라",1000)
+    var v3 = v1;
+    var v4 = Product("사이다",1000)
+
+    println(v1 == v2)
+    println(v1 === v2)
+
+    println(v1 === v3)
+    println(v1 == v3)
+    println(v1 == v4)
+    println(v1 === v4)
+
+}
+
+class Product(val name : String, val price : Int){
+    override fun equals(other: Any?): Boolean {
+        if(other is Product){
+            return other.name == name && other.price == price
+        }else{
+            return false
+        }
+    }
+}
+```
+
+### 019 함수의 argument / infix
+1. 오버 로딩을 지원한다.
+    - 이름이 같다고 하더라고 파라미터가 다르다면 다른 함수로 동작하게 할 수 있다.
+    
+```code
+package Kotlin2020
+
+fun main(args: Array<String>) {
+    read(1)
+    read("HH")
+    deliveryItem("장건일", destination = "학교")
+    sum(1,2,3,4,12,1,231,2,41,24,3)
+}
+
+fun read(x: Int){
+    println("number $x")
+}
+
+fun read(x:String){
+    println("감사합니다. $x")
+}
+//
+fun deliveryItem(name : String, count: Int= 1 ,destination: String = "집"){
+    println("$name $count $destination")
+}
+//
+fun sum(vararg number: Int){
+    for(i in number){
+        println(i)
+    }
+}
+
+//
+infix fun Int.mul(x:Int):Int = this * x
 
 ```
 
-### 019
+### 020 중첩 클래스 vs 내부클래스
+1. 중첩클래스 : 내용을 공유할 수 없는 별도의 클래스 OuterClass.Nested 로 중첩 클래스로 접근이 가능 
+2. 내부 클래스 : inner 키워드 사용 : 외부 클래스의 속성과 함수의 사용이 가능하다.
+    -   this@OuterClassName 으로 접근이 가능
 
 ```code
 
-```
+package Kotlin2020
 
-### 020
+fun main(args: Array<String>) {
 
-```code
+    Outer.Nested().say()
 
+    var Outer = Outer()
+    val inner = Outer.Inner()
+
+    inner.say()
+    inner.say2()
+    Outer.text ="Changed Test"
+    inner.say2()
+}
+
+class Outer{
+    var text = "Outer Class"
+
+    class Nested{
+        fun say(){
+            println("Nexted Class")
+        }
+    }
+
+    inner class Inner{
+        var text = "Inner Class"
+        fun say(){
+            println(text)
+        }
+        fun say2(){
+            println(this@Outer.text) //외부 클래스의 값에 접근이 가능해진다.
+        }
+    }
+}
 ```
 
 ### 021
