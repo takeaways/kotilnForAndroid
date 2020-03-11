@@ -639,3 +639,182 @@ class EventPrinter{
 }
 
 ```
+
+
+### 014 다형성
+1. 콜라를 콜라 자체로 볼 수 있지만 음료라는 개념으로도 볼 수있게 만드는 것이 '디형성'의 개념이다.
+2. up-casting / down-casting
+3. down-casting 별도의 연산자 필요 as / is
+4. as : 변수를 호홛되는 자료형으로 변환해주는 캐스팅 연산자로
+    -   var a : Drink = Cola() -> a as Cola : 콜라의 자료형이 된다.
+5. is : 변수가 자료형에 호환되는지를 먼제 '체크한 후 변환'해주는 개스팅 연산자로 
+    - 조건문 내에서 사용되는 특직이 있다. if (a is Cola){}
+
+```code
+
+package Kotlin2020
+
+fun main(args: Array<String>) {
+    var a = Drink()
+    a.drink()
+
+    var b : Drink = Cola()
+    b.drink()
+    if(b is Cola){
+        b.washDishes()
+    }
+
+    var c = b as Cola
+    c.washDishes()
+    b.washDishes()
+}
+
+open class Drink{
+    var name = "음료"
+    open fun drink(){
+        println("${name} 마십니다.")
+    }
+}
+
+class Cola : Drink(){
+    var type = "콜라"
+    override fun drink() {
+        println("$name 중에 $type 을 마십니다.")
+    }
+
+    fun washDishes(){
+        println("${type}로 설거지를 합니다.")
+    }
+
+
+}
+
+```
+
+### 015 제너릭
+1. 함수나 클래스를 선헌할 때 고정적인 자료형 대신 실제 자료형으로 대체되는 타입 패러미터를 받아 사용하는 방법입니다.
+    -   <T> 를 사용하는 것이 관례 T U V 순으로 
+2. 사용법
+    - 함수에 제너릭을 사용하는 방법
+        - fun <T> testFunc(var param: T){}
+        - testFunc(1) -> fun <Int> testFunc(var param: Int){} 자동으로 추론
+    - 클래스에서 제너릭을 사용하는 방법     
+        - class testClass <T>
+        - testClass<Int>() -> 인스턴스를 생성할 때 
+        - class TestClass <T>(var pref: T)
+        - TestClass(1) -> class TestClass<Int>(var pref: Int) 차동으로 추론
+        
+
+```code
+package Kotlin2020
+
+fun main(args: Array<String>) {
+    UsingGeneric(A1()).doShout()
+    UsingGeneric(B1()).doShout()
+    UsingGeneric(C1()).doShout()
+
+    doShouting(B1())
+
+}
+
+fun <T: A1> doShouting(t: T){
+    t.shout()
+}
+
+
+
+open class A1 {
+    open fun shout(){
+        println("A Shout")
+    }
+}
+
+class B1: A1(){
+    override fun shout() {
+        println("B Shout")
+    }
+}
+
+class C1: A1(){
+    override fun shout() {
+        println("C Shout")
+    }
+
+    fun say(){
+        println("sayyyy")
+    }
+}
+
+class UsingGeneric<T:A1>(var t : T){
+    fun doShout(){
+        t.shout()
+    }
+}
+
+```
+
+### 016
+
+```code
+
+```
+
+### 017
+
+```code
+
+```
+
+### 018
+
+```code
+
+```
+
+### 019
+
+```code
+
+```
+
+### 020
+
+```code
+
+```
+
+### 021
+
+```code
+
+```
+
+### 022
+
+```code
+
+```
+
+### 023
+
+```code
+
+```
+
+### 024
+
+```code
+
+```
+
+### 025
+
+```code
+
+```
+
+### 026
+
+```code
+
+```
