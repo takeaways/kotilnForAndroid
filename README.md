@@ -951,14 +951,45 @@ class Outer{
 
 ```
 
-### 022
+### 022 Data Class / Enum Class
+1. Data Class : 데이터를 다루는 최적화 기능 5가지
+    - equals()
+    - toString()
+    - hashcode()
+    - copy() 
+    - componentsX()
+    
+    
+2. Enum Class : 
 
 ```code
+package Kotlin2020
+
+fun main(args: Array<String>) {
+    var a = Gclass("s",1)
+    println(a == Gclass("s",1))
+    println(a.hashCode())
+    println(a)
+
+
+    var b= Data("d",2)
+
+
+
+}
+
+class Gclass(val name: String, val id: Int)
+data class Data(val name: String, val id: Int)
 
 ```
 
-### 023
-
+### 023 컬렉션 Set 과 Map
+1. Set : list와 달리 순서가 정렬되지 않으며, 중복이 허용되지 않는다.
+    - contains("ㅇ")와 같이 존재 한지만 확인이 가능합니다.
+    - MutableSet 이 존재 합니다.
+2. Map : key : value 쌍으로 이루어져 있습니다.
+    - put(key, value)
+    - remove(key)
 ```code
 
 ```
