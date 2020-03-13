@@ -508,7 +508,7 @@ class Book(var name : String, var price: Int){
 
 ### 012 오브젝트
 1. 생성자 없이 객체를 직접 만들어내는 object
-2. 클래스는 인스턴스 객체를 만들어 내기위한 틀이기 때문에 내부에 있는 속성이나 하수를 사용하기 위해서는
+2. 클래스는 인스턴스 객체를 만들어 내기위한 틀이기 때문에 내부에 있는 속성이나 함수를 사용하기 위해서는
     생성자를 통하여 실체가 되는 인스턴스 객체를 만들어 사용해야 한다. 
 3. 그러나 여러개의 인스턴스를 만들 필요없이 하나의 객체 만으로 공톡적인 속성과 함수를 사용해야하는
     코드에서는 굳이 class를 사용할 필요 없이 사용이 가능하다.
@@ -1015,18 +1015,212 @@ fun main(args: Array<String>) {
     - forEach{it -> }
     - filter{it -> } 반환
     - map{it-> } 변경후 반환 js랑 똑같은 사용법
+    - any{it -> it == 0} 하나라도 맞으면 true
+    - all{it -> it == 0} 모두 조건에 맞으면 true
+    - none{it -> it == 0} 하나도 조건에 맞지 않으면 true
+    - first() and first{it -> 조건} 첫 번째를 반환해 주거나, 조건에 맞는 첫 번째 값을 반환 해준다. (find로 사용가능)
+    - last() and last{it > 3 } first와 반대 (firndLast로 사용가능)
+    - count() and count{it > 7} 전체 또는 조건에 맞는 것의 갯 수
 ```code
+
+package Kotlin2020
+
+fun main(args: Array<String>) {
+    val nameList = listOf("박수영", "김지수", "김다현", "신유나","김지우")
+    nameList.forEach{println(it)}
+    println()
+    val newNameList = nameList.map{name -> "welcome , $name"}
+    println(newNameList)
+    val kimList = nameList.filter{it.contains("장")}
+    println(kimList)
+}
+```
+
+### 025 컬렉션에 사용하는 함수들 002
+1. 함수형 언어의 특징을 가지고 있기 때문에 컬렉션 함수를 사용할 수 있다.
+    - associateBy : 아이템에서 key를 추출하여 map으로 변환하는 함수
+    - groupBy : key가 같은 아이템끼리 배열로 묶어 map으로 만드는 함수
+    - partition : 아이템에 조건을 걸어 두개의 컬렉션으로 나누어 줌
+    - flatMap{} : 아이템마다 만들어진 컬렉션을 합쳐서 반환하는 함수
+    - getOrElse(8){50} : collection 내부에 index = 8 이 있으면 해당 값을 반환하고 없다면 중괄호 값을 반환해라
+    - A collection zip B collection : 컬렉션 두개의 아이템을 1:1로 매칭하여 새 컬렉션을 만들어 줌 
+    
+    
+```code
+package Kotlin2020
+
+fun main(args: Array<String>) {
+    data class Person(val name : String, val birth : Int)
+
+    val personList = listOf<Person>(
+        Person("유나",1992),
+        Person("조이",1996),
+        Person("츄",1999),
+        Person("유나",2003)
+    )
+    val associted = personList.associateBy { it.birth }
+    println(associted)
+
+    val grouped = personList.groupBy { it.name }
+    println(grouped)
+
+    val (over98, upder98) = personList.partition { it.birth > 1998 }
+    println(over98)
+    println(upder98)
+
+    val numbers = listOf(-3, 7,2,-10,1)
+    println(numbers.flatMap { listOf(it*10, it+10, it*0) })
+
+    println(numbers.getOrElse(1){50})
+    println(numbers.getOrElse(100){50})
+}
+```
+
+### 026 변수의 고급 기술
+1. 상수를 : const val  컴파일시점에 결정되어 변경이 절대 불가능 하다. 대문자 스네이크 케이스를 사용한다.
+2. 상수를 사용하는 이유는,
+    - 변수는 런타임시 객체를 생성하는데 시간을 더 소요하기 떄문에 성능하락을 가져온다. 
+    따라서 늘 고정적으로 사용할 값은 상수를 통해 객체의 생성없이 값을 고정하여 사용하면서 성능을 향상시킬 수 있다. 
+3. 늦은 초기화  :  코틀린에서 변수를 선얼할 때 자료형만 지정해두고 객체는 나중에 할당하면 컴파일이 되지 않습니다.
+경우에 따라서는 변수에 객체를 할당하는 것을 선언과 동시에 하지 못할 경우도 있다.
+    - lateinit var a : Int 일단 변수만 선언하고 할당은 나중에
+    - 초기값 할당 전까지는 변수를 사용할 수 없음
+    - 기본 자료형에는 사용할 수 없음
+    - ::a.isinitialized : 초기화 여부 확인가능
+4.  lazt 
+    - 사용할때 초기화를 한다.
+    - val a : int by lazy { 7 }
+
+```code
+package Kotlin2020
+
+fun main(args: Array<String>) {
+//    val foodCourt = FoodCourt()
+//    foodCourt.searchPrice(FoodCourt.FOOD_STEAK)
+//    foodCourt.searchPrice(FoodCourt.FOOD_PIZZA)
+//    foodCourt.searchPrice(FoodCourt.FOOD_CREAM_PASTA)
+
+//    val testLateInit = LateInitSample()
+//    println(testLateInit.getLateInitTest())
+//    testLateInit.setTextInit("Hello world")
+//    println(testLateInit.getLateInitTest())
+
+    val number : Int by lazy{
+        println("초기화를 합니다.")
+        5
+    }
+
+    println("start")
+    println(number)
+    println(number)
+
+}
+
+class FoodCourt{
+    fun searchPrice(foodName: String){
+        val price = when(foodName){
+            FOOD_CREAM_PASTA -> 13000
+            FOOD_PIZZA -> 25000
+            FOOD_STEAK -> 30000
+            else -> 0
+        }
+        println("${foodName}의 가격은 ${price} 입니다.")
+
+    }
+
+    companion object{
+        const val FOOD_CREAM_PASTA = "크림파스타"
+        const val FOOD_STEAK = "스테이크"
+        const val FOOD_PIZZA = "피자"
+    }
+}
+class LateInitSample{
+    private lateinit var text: String
+    fun getLateInitTest(): String {
+        if(::text.isInitialized)
+            return text
+        else
+            return "기본값"
+    }
+
+    fun setTextInit(std: String){
+        text = std
+    }
+
+}
 
 ```
 
-### 025
+### 027 비트연산
+1. 사람이 사용하는 10진법이 아닌 2진법으로 연산할 수 있는기능
+2. 실무 : 거의 계산에는 사용하지 않으며, 2진법을 이용한 연산 최적화가 필요하다면 컴파일의 기능을 사용하는 경우가 대부분임
 
 ```code
+package Kotlin2020
 
+fun main(args: Array<String>) {
+    var bitData : Int = 0b10000 //지정되지 않은 상위비트는 0으로 채워 집니다.
+    bitData = (1 shl 2)
+    bitData = (1 shr 2)
+    
+    bitData = bitData or (1 shl 2) // 1이라는 값을 자측으로 2번 밀기
+    println(bitData.toString(2))
+    bitData = bitData or (1 shr 2)//  1이라는 값을 우측으로 2번 밀기
+}
 ```
 
-### 026
-
+### 028 코루틴 @@@@ 비동기 처리 
+1. 여러개의 루틴을 동시에 처리 할 수 있는 방법을 배워 봅니다.
+2. 비동기 처리 : 코루틴(개발자가 제어할 수 있는 단위 ) import kotlinx.coroutines.*
+3. GlobalScope vs CorutineScope
+    - GlobalScope : 프로그램 어디서나 제어, 동작이 가능한기본 범위
+    - CorutineScope : 특정한 목적의 Dispatcher를 지정하여 제어 및 동작이 가능한 범위
+        - Dispatcher.Default : 기본적인 백그라운드 동작
+        - Dispatcher.IO : I/O에 최적화된 동작
+        - Dispatcher.Main : 메인 스레드에서 동작
+    - launch{} / async{} : 반환값 여부 
+4. 코루틴은 프로그램 전체가 종료되면 함께 종료 되기 떄문에 실행을 보장하기 위해서는 일정점위 기다리게 한다.
+    - 루틴을 보장하기 위해 사용하는 함수
+    - delay() : delay(milisecod: Long) - 밀리세컨드 단위로 루틴을 잠시 대기시키는 함수
+    - join() : Job.join() - Job의 실행이 끝날떄까지 대기하는 함수
+    - await() : Defferred.await()의 실행이 끝날때 까지 대기하는 함수
+    - cancel() : 코루틴 중지 
+        - 코루틴 내부의 delay() 또는 yield() 함수가 사용된 위치까지 수행된 뒤 종료됨.
+        - cancel()로 인해 속성인 isActive가 false가 되므로 이를 확인하여 수동으로 종료함
+    - withTimeoutOrNull() : 제한된 시간내에 종료되면 반환값을 아니면 null을 반환
 ```code
+package Kotlin2020
 
+import kotlin.coroutines.*
+
+fun main(){
+    val scope = GlobalScope
+    runBlocking {
+        val a = lanuch{ //JOB
+            for(i in 1..45){
+                println(i)
+                deley(10)
+            }
+        }
+        val b = async{ // DIfferd
+            "async 종룍"
+        }
+        println("async 대기")
+        println(b.await())
+        println("launch 대기")
+        a.join()
+        println("launch 종료")
+    }
+
+    runBlocking{
+        val result : String? = withTimeoutOrNull(50){
+            for(i in 1..1000){
+                println(i)
+                delay(10)
+            }
+        }
+        "finish"
+
+    }
+}
 ```
