@@ -7,6 +7,7 @@ fun main(args : Array<String>){
     val c: Char = 'a';
     val s: String = "String 입니다";
     val f: Boolean = true;
+    val k: String = "Welcome";
 
 
 }
